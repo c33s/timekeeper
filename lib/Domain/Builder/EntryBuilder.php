@@ -23,30 +23,45 @@ class EntryBuilder
     /**
      * @var array
      */
-    private $tags;
+    private $tags = [];
 
     public function build(): Entry
     {
-        return new Entry();
+        return new Entry($this->time, $this->comment, $this->category, $this->tags);
     }
 
-    public function time(string $time)
+    public function time(string $time): self
     {
         $this->time = $time;
+
+        return $this;
     }
 
-    public function comment(string $comment)
+    public function comment(string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
     }
 
-    public function category(string $category)
+    public function category(string $category): self
     {
         $this->category = $category;
+
+        return $this;
     }
 
-    public function addTag(string $tag)
+    public function addTag(string $tag): self
     {
         $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    public static function fromTime(string $string): self
+    {
+        $new = new self();
+        $new->time = $string;
+        return $new;
     }
 }

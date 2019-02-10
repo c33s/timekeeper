@@ -4,7 +4,7 @@ namespace Phpactor\Extension\Timekeeper\Adapter\Hoa;
 
 use DateTimeImmutable;
 use Hoa\Compiler\Llk\TreeNode;
-use Phpactor\Extension\Timekeeper\Domain\Builder\Date;
+use Phpactor\Extension\Timekeeper\Domain\Date;
 use Phpactor\Extension\Timekeeper\Domain\Builder\DateBuilder;
 use Phpactor\Extension\Timekeeper\Domain\Builder\EntryBuilder;
 use Phpactor\Extension\Timekeeper\Domain\Builder\TimesheetBuilder;
@@ -36,7 +36,7 @@ class TimesheetWalker
             }
         }
 
-        return new Timesheet();
+        return $builder->build();
     }
 
     private function walkDate(TreeNode $node): Date
@@ -89,7 +89,7 @@ class TimesheetWalker
             }
 
             if ($childNode->getValueToken() === self::TOKEN_TEXT) {
-                $builder->comment($childNode->getValueValue());
+                $builder->comment(trim($childNode->getValueValue()));
                 continue;
             }
 
@@ -126,7 +126,7 @@ class TimesheetWalker
             assert($childNode instanceof TreeNode);
 
             if ($childNode->getValueToken() === 'tag') {
-                return $childNode->getValueValue();
+                return ltrim($childNode->getValueValue(), '@');
             }
         }
 
