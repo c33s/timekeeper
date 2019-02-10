@@ -2,9 +2,11 @@
 
 namespace Phpactor\Extension\Timekeeper\Domain;
 
+use ArrayIterator;
 use DateTimeImmutable;
+use IteratorAggregate;
 
-class Date
+class Date implements IteratorAggregate
 {
     /**
      * @var DateTimeImmutable
@@ -20,5 +22,18 @@ class Date
     {
         $this->date = $date;
         $this->entries = $entries;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->entries);
+    }
+
+    public function date(): DateTimeImmutable
+    {
+        return $this->date;
     }
 }

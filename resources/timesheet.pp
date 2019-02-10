@@ -7,7 +7,7 @@
 %token entry:break        \n\n -> default
 %token entry:newline      \n
 %token entry:space        \s
-%token entry:text         [a-zA-Z0-9'"\h]+
+%token entry:text         [a-zA-Z0-9'"\h.-]+
 %token entry:tag          @[a-zA-Z0-9-_]+
 
 %token entry:bracket_     \[ -> category

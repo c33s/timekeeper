@@ -9,11 +9,11 @@ class Entry
      */
     private $time;
     /**
-     * @var string
+     * @var string|null
      */
     private $comment;
     /**
-     * @var string
+     * @var string|null
      */
     private $category;
     /**
@@ -27,5 +27,25 @@ class Entry
         $this->comment = $comment;
         $this->category = $category;
         $this->tags = $tags;
+    }
+
+    public function time(): string
+    {
+        return $this->time;
+    }
+
+    public function comment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function category(): ?string
+    {
+        return $this->category;
+    }
+
+    public function tags(): array
+    {
+        return $this->tags;
     }
 }

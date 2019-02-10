@@ -2,7 +2,9 @@
 
 namespace Phpactor\Extension\Timekeeper\Domain;
 
-class Timesheet
+use IteratorAggregate;
+
+class Timesheet implements IteratorAggregate
 {
     /**
      * @var Date[]
@@ -12,5 +14,13 @@ class Timesheet
     public function __construct(array $dates)
     {
         $this->dates = $dates;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->dates);
     }
 }

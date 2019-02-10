@@ -7,6 +7,7 @@ use Phpactor\Extension\Completion\CompletionExtension;
 use Phpactor\Extension\Console\ConsoleExtension;
 use Phpactor\Extension\Logger\LoggingExtension;
 use Phpactor\Extension\Rpc\RpcExtension;
+use Phpactor\Extension\Timekeeper\TimekeeperExtension;
 use Phpactor\FilePathResolverExtension\FilePathResolverExtension;
 use Symfony\Component\Console\Application;
 
@@ -14,6 +15,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $container = PhpactorContainer::fromExtensions([
     ConsoleExtension::class,
+    TimekeeperExtension::class,
 ], []);
 
 $application = new Application();
