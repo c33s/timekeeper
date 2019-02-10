@@ -97,6 +97,10 @@ EOT
 2019-01-01
 10:00 [AA-1234] One
 12:00 [AA-4345] Two @pairing @foobar @barfoo
+
+2020-01-01
+10:00 [AA-1234] One
+12:00 [AA-4345] Two @pairing @foobar @barfoo
 EOT
         ];
     }
