@@ -1,24 +1,23 @@
 <?php
 
-namespace Phpactor\Extension\Timekeeper\Tests\Integration\Parser;
+namespace Phpactor\Extension\Timekeeper\Tests\Integration;
 
 use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Visitor\Dump;
 use Hoa\File\Read;
 use PHPUnit\Framework\TestCase;
 
-class ParserTest extends TestCase
+class GrammarTest extends TestCase
 {
     /**
      * @dataProvider provideDocuments
      */
     public function testParse(string $string)
     {
-        $compiler = Llk::load(new Read(__DIR__ . '/../../../lib/Parser/timesheet.pp'));
+        $compiler = Llk::load(new Read(__DIR__ . '/../../resources/timesheet.pp'));
 
         $ast = $compiler->parse($string);
         $dumper = new Dump();
-        echo($dumper->visit($ast));
         $this->addToAssertionCount(1);
     }
 
