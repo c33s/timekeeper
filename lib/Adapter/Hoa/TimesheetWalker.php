@@ -52,8 +52,8 @@ class TimesheetWalker
                 continue;
             }
 
-            if ($childNode->getId() == self::NODE_ENTRY_LINE) {
-                $builder->addEntry($this->walkEntryLine($childNode));
+            if ($childNode->getId() == self::NODE_ENTRY) {
+                $builder->addEntry($this->walkEntry($childNode));
                 continue;
             }
 
@@ -61,19 +61,6 @@ class TimesheetWalker
         }
 
         return $builder->build();
-    }
-
-    private function walkEntryLine(TreeNode $node): Entry
-    {
-        $date = $node->getValue();
-
-        foreach ($node->getChildren() as $childNode) {
-            assert($childNode instanceof TreeNode);
-
-            if ($childNode->getId() === self::NODE_ENTRY) {
-                return $this->walkEntry($childNode);
-            }
-        }
     }
 
     private function walkEntry(TreeNode $childNode): Entry

@@ -15,7 +15,6 @@ class GrammarTest extends TestCase
     public function testParse(string $string)
     {
         $compiler = Llk::load(new Read(__DIR__ . '/../../resources/timesheet.pp'));
-
         $ast = $compiler->parse($string);
         $dumper = new Dump();
         $this->addToAssertionCount(1);
