@@ -49,13 +49,15 @@ class ReportCommand extends Command
     {
         if (!file_exists($path)) {
             throw new RuntimeException(sprintf(
-                'File "%s" does not exist', $path
+                'File "%s" does not exist',
+                $path
             ));
         }
 
         if (!is_readable($path)) {
             throw new RuntimeException(sprintf(
-                'File "%s" is not readable', $path
+                'File "%s" is not readable',
+                $path
             ));
         }
 
@@ -63,7 +65,8 @@ class ReportCommand extends Command
 
         if (false === $contents) {
             throw new RuntimeException(sprintf(
-                'Could not open file "%s"', $path
+                'Could not open file "%s"',
+                $path
             ));
         }
 

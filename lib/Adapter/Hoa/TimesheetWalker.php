@@ -10,7 +10,6 @@ use Phpactor\Extension\Timekeeper\Domain\Builder\EntryBuilder;
 use Phpactor\Extension\Timekeeper\Domain\Builder\TimesheetBuilder;
 use Phpactor\Extension\Timekeeper\Domain\Entry;
 use Phpactor\Extension\Timekeeper\Domain\Exception\DefectException;
-use Phpactor\Extension\Timekeeper\Domain\Timesheet;
 
 class TimesheetWalker
 {
@@ -56,8 +55,6 @@ class TimesheetWalker
                 $builder->addEntry($this->walkEntry($childNode));
                 continue;
             }
-
-
         }
 
         return $builder->build();

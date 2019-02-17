@@ -19,9 +19,9 @@ class HoaTimesheetLoader implements TimesheetLoader
         try {
             $ast = $compiler->parse($document);
         } catch (UnrecognizedToken $hoaException) {
-            $this->formatUnrecognizedToken($hoaException, $document);
+            throw $this->formatUnrecognizedToken($hoaException, $document);
         } catch (Exception $exception) {
-            throw new CouldNotLoadTimesheet($hoaException->getMessage(), $hoaException->getCode(), $hoaException);
+            throw new CouldNotLoadTimesheet($exception->getMessage(), $exception->getCode(), $exception);
         }
 
         $walker = new TimesheetWalker();
@@ -33,19 +33,17 @@ class HoaTimesheetLoader implements TimesheetLoader
     {
         // HOA only mangles the exception message in the Lexer
         if (false === strpos($hoaException->getFile(), 'Lexer')) {
-            throw $hoaException;
+            return $hoaException;
         }
 
         $offset = $hoaException->getColumn();
-        $line = implode(PHP_EOL,[
-            '    ' . (new LineAtOffset())->__invoke($document, $offset - 1),
+        $line = implode(PHP_EOL, [
             '   >' . (new LineAtOffset())->__invoke($document, $offset),
-            '    ' . (new LineAtOffset())->__invoke($document, $offset, 1),
         ]);
 
         $message = (new LineAtOffset())->__invoke($hoaException->getMessage(), 0);
 
-        throw new CouldNotLoadTimesheet(implode(PHP_EOL, [
+        return new CouldNotLoadTimesheet(implode(PHP_EOL, [
             $message, $line
         ]));
     }

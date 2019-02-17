@@ -2,8 +2,6 @@
 
 namespace Phpactor\Extension\Timekeeper\Tests\Integration;
 
-use Hoa\Compiler\Llk\Llk;
-use Hoa\File\Read;
 use PHPUnit\Framework\TestCase;
 use Phpactor\Extension\Timekeeper\Adapter\Hoa\HoaTimesheetLoader;
 use Phpactor\Extension\Timekeeper\Domain\Builder\DateBuilder;

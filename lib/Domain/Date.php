@@ -6,7 +6,6 @@ use ArrayIterator;
 use DateInterval;
 use DateTimeImmutable;
 use IteratorAggregate;
-use Phpactor\Extension\Timekeeper\Domain\Entry;
 use RuntimeException;
 
 class Date implements IteratorAggregate
