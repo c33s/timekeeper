@@ -25,15 +25,25 @@ class EntryBuilder
      */
     private $tags = [];
 
+    /**
+     * @var int
+     */
+    private $hour;
+
+    /**
+     * @var int
+     */
+    private $minutes;
+
     public function build(): Entry
     {
-        return new Entry($this->time, $this->comment, $this->category, $this->tags);
+        return new Entry($this->hour, $this->minutes, $this->comment, $this->category, $this->tags);
     }
 
-    public function time(string $time): self
+    public function time(int $hour, int $minutes): self
     {
-        $this->time = $time;
-
+        $this->hour = $hour;
+        $this->minutes = $minutes;
         return $this;
     }
 
@@ -60,8 +70,10 @@ class EntryBuilder
 
     public static function fromTime(string $string): self
     {
+        [ $hour, $minutes] = explode(':', $string);
         $new = new self();
-        $new->time = $string;
+        $new->hour = $hour;
+        $new->minutes = $minutes;
         return $new;
     }
 }

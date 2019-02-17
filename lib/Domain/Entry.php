@@ -5,10 +5,6 @@ namespace Phpactor\Extension\Timekeeper\Domain;
 class Entry
 {
     /**
-     * @var string
-     */
-    private $time;
-    /**
      * @var string|null
      */
     private $comment;
@@ -21,17 +17,28 @@ class Entry
      */
     private $tags;
 
-    public function __construct(string $time, ?string $comment, ?string $category, array $tags)
+    /**
+     * @var int
+     */
+    private $hour;
+
+    /**
+     * @var int
+     */
+    private $minutes;
+
+    public function __construct(int $hours, int $minutes, ?string $comment, ?string $category, array $tags)
     {
-        $this->time = $time;
         $this->comment = $comment;
         $this->category = $category;
         $this->tags = $tags;
+        $this->hour = $hours;
+        $this->minutes = $minutes;
     }
 
     public function time(): string
     {
-        return $this->time;
+        return sprintf('%02d:%02d', $this->hour, $this->minutes);
     }
 
     public function comment(): ?string
@@ -47,5 +54,15 @@ class Entry
     public function tags(): array
     {
         return $this->tags;
+    }
+
+    public function hour(): int
+    {
+        return $this->hour;
+    }
+
+    public function minutes(): int
+    {
+        return $this->minutes;
     }
 }

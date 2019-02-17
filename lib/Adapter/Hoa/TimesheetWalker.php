@@ -71,7 +71,8 @@ class TimesheetWalker
             assert($childNode instanceof TreeNode);
 
             if ($childNode->getValueToken() === self::TOKEN_TIME) {
-                $builder->time($childNode->getValueValue());
+                [ $hour, $minutes ] = explode(':', $childNode->getValueValue());
+                $builder->time($hour, $minutes);
                 continue;
             }
 

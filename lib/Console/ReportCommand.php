@@ -3,6 +3,7 @@
 namespace Phpactor\Extension\Timekeeper\Console;
 
 use Phpactor\Extension\Timekeeper\Adapter\Hoa\HoaTimesheetLoader;
+use Phpactor\Extension\Timekeeper\Domain\Date;
 use Phpactor\Extension\Timekeeper\Domain\Timesheet;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
@@ -25,14 +26,16 @@ class ReportCommand extends Command
         $timesheet = $this->loadTimesheet($path);
 
         $table = new Table($output);
-        $table->setHeaders(['date', 'time', 'category', 'description', 'tags']);
+        $table->setHeaders(['date', 'time', 'category', 'duration', 'description', 'tags']);
 
         foreach ($timesheet as $date) {
             foreach ($date as $entry) {
+                assert($date instanceof Date);
                 $table->addRow([
                     $date->date()->format('Y-m-d'),
                     $entry->time(),
                     sprintf('<info>%s</>', $entry->category()),
+                    $date->calculateDuration($entry)->format('%hh %im'),
                     trim($entry->comment()),
                     $this->formatTags($entry->tags())
                 ]);
