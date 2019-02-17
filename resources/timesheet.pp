@@ -1,3 +1,6 @@
+%skip  newline      \n
+%skip  comment      //.*\n
+%skip  entry:comment      //.*\n
 %token newline            \n
 %token space              [\x20\x09\x0a\x0d]+
 %token date               [0-9]{4}-[0-1][0-9]-[0-3][0-9] -> entry
@@ -6,11 +9,11 @@
 %token entry:break        \n\n -> default
 %token entry:newline      \n
 %token entry:space        \s
-%token entry:text         [a-zA-Z0-9'"\h.-]+
+%token entry:text         [\(\)a-zA-Z0-9'"\h.\-,:/|?!]+
 %token entry:tag          @[a-zA-Z0-9-_]+
 %token entry:bracket_     \[ -> category
 
-%token category:name      [A-Za-z-_0-9]+
+%token category:name      [A-Za-z-_0-9\s.\?]+
 %token category:_bracket  \] -> entry
 
 #document:
@@ -20,7 +23,7 @@
     <date> <newline>? entry()*
 
 #entry:
-    <time> <space> category()? <space>? <text>? tag()* (<newline> | <break> )?
+    <time> (<space> | <break> | <newline>) category()? <space>? <text>? tag()* (<newline> | <break> )?
 
 #category:
     <bracket_> <name> <_bracket>

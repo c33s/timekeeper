@@ -31,10 +31,19 @@ class HoaTimesheetLoader implements TimesheetLoader
 
     private function formatUnrecognizedToken(UnrecognizedToken $hoaException, string $document)
     {
-        $offset = $hoaException->getColumn();
-        $line = '    ' . (new LineAtOffset())->__invoke($document, $offset);
-        $message = (new LineAtOffset())->__invoke($hoaException->getMessage(), 0);
+        // HOA only mangles the exception message in the Lexer
+        if (false === strpos($hoaException->getFile(), 'Lexer')) {
+            throw $hoaException;
+        }
 
+        $offset = $hoaException->getColumn();
+        $line = implode(PHP_EOL,[
+            '    ' . (new LineAtOffset())->__invoke($document, $offset - 1),
+            '   >' . (new LineAtOffset())->__invoke($document, $offset),
+            '    ' . (new LineAtOffset())->__invoke($document, $offset, 1),
+        ]);
+
+        $message = (new LineAtOffset())->__invoke($hoaException->getMessage(), 0);
 
         throw new CouldNotLoadTimesheet(implode(PHP_EOL, [
             $message, $line
